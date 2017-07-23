@@ -1,19 +1,39 @@
 package com.skilldistillery.film.data;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Film {
 	private int id;
 	private String title;
 	private String description;
-	private int releaseYear;
+	private Date releaseYear;
 	private int rentalDuration;
 	private double rentalRate;
 	private int length; //Duration in minutes
 	private double replacementCost;
 	private String rating;
 	private List<Actor> cast;
+	private int languageId;
+	private String specialFeatures;
+	
+	
+	
+	public int getLanguageId() {
+		return languageId;
+	}
+	public void setLanguageId(int languageId) {
+		this.languageId = languageId;
+	}
+	public String getSpecialFeatures() {
+		return specialFeatures;
+	}
+	public void setSpecialFeatures(String specialFeatures) {
+		this.specialFeatures = specialFeatures;
+	}
 	public List<Actor> getCast() {
 		return cast;
 	}
@@ -38,10 +58,10 @@ public class Film {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getReleaseYear() {
+	public Date getReleaseYear() {
 		return releaseYear;
 	}
-	public void setReleaseYear(int releaseYear) {
+	public void setReleaseYear(Date releaseYear) {
 		this.releaseYear = releaseYear;
 	}
 	public int getRentalDuration() {
@@ -74,13 +94,13 @@ public class Film {
 	public void setRating(String rating) {
 		this.rating = rating;
 	}
-	public Film(int id, String title, String description, int releaseYear, int rentalDuration, double rentalRate,
+	public Film(int id, String title, String description, Date releaseYear2, int rentalDuration, double rentalRate,
 			int length, double replacementCost, String rating, List<Actor> cast) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
-		this.releaseYear = releaseYear;
+		this.releaseYear = releaseYear2;
 		this.rentalDuration = rentalDuration;
 		this.rentalRate = rentalRate;
 		this.length = length;

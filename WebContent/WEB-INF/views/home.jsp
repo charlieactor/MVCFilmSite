@@ -20,19 +20,32 @@
 	<input type="text" name="search">
 	<input type="submit" value="Search Films">
   </form>
+  <h2>Add a new film!</h2>
+	<form action="addNewFilm.do" method="POST">
+		<input type="text" name="title" placeholder="title">
+		<input type="text" name="description" placeholder="description">
+		<input type="number" name="releaseYear" placeholder="release year">
+		<input type="text" name="rating" placeholder="rating">
+		<input type="number" name="length" placeholder="length (minutes)">
+		<input type="submit" value="add Film to database">
+	</form>
   
   <c:choose>
   <c:when test="${filmTitle != null}">
     <h3>${filmTitle.title}</h3>
+    <form action="editThisMovie.do" action="GET">
+    		<input type="hidden" name="id" value="${filmTitle.id}">
+    		<input type="submit" value="Edit this movie">
+    </form>
     <ul>
     	  <li>${filmTitle.description}</li>
-    	  <li>${filmTitle.rating}</li>
-    	  <li>${filmTitle.length}</li>
-    	  <li>${filmTitle.releaseYear}</li>
-    	  <li>${filmTitle.rentalDuration}</li>
-    	  <li>${filmTitle.rentalRate}</li>
-    	  <li>${filmTitle.replacementCost}</li>
-    	  <li>${filmTitle.id}</li>
+    	  <li>Rated ${filmTitle.rating}</li>
+    	  <li>Length (minutes): ${filmTitle.length}</li>
+    	  <li>Release Year: ${filmTitle.releaseYear}</li>
+    	  <li>Rental Duration: ${filmTitle.rentalDuration}</li>
+    	  <li>Rental Rate: ${filmTitle.rentalRate}</li>
+    	  <li>Replacement Cost: ${filmTitle.replacementCost}</li>
+    	  <li>Film ID: ${filmTitle.id}</li>
     </ul>
     <h3>${filmTitle.title} Cast</h3>
     <ul>
