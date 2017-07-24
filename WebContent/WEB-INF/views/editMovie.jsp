@@ -9,18 +9,24 @@
 <body>
 	<h2>Edit ${film.title}!</h2>
 	<form action="editMovie.do" method="POST">
-		<input type="hidden" name="id" value="${film.id}"
-		<input type="text" name="title" value="${film.title}">
-		<input type="text" name="description" value="${film.description}">
-		<input type="number" name="releaseYear" value="${film.releaseYear}">
-		<input type="number" name="rentalDuration" value="${film.rentalDuration}">
-		<input type="text" name="rentalRate" value="${film.rentalRate}">
-		<input type="number" name="length" value="${film.length}">
-		<input type="text" name="replacementCost" value="${film.replacementCost}">
-		<input type="text" name="rating" value="${film.rating}">
-		<input type="text" name="cast" value="${film.cast}">
-		<input type="number" name="languageId" value="${film.languageId}">
-		<input type="text" name="specialFeatures" value="${film.specialFeatures}">
+		<input type="hidden" name="id" value="${film.id}">
+		Title: <input type="text" name="title" value="${film.title}"><br>
+		Description: <input type="text" name="description" value="${film.description}"><br>
+		Release Year: <input type="number" name="releaseYear" value="${film.releaseYear}"><br>
+		Rental Duration: <input type="number" name="rentalDuration" value="${film.rentalDuration}"><br>
+		Rental Rate: <input type="text" name="rentalRate" value="${film.rentalRate}"><br>
+		Length (minutes): <input type="number" name="length" value="${film.length}"><br>
+		Replacement Cost: <input type="text" name="replacementCost" value="${film.replacementCost}"><br>
+		Rating: <input type="text" name="rating" value="${film.rating}"><br>
+		Special Features: <input type="text" name="specialFeatures" value="${film.specialFeatures}"><br>
+		<input type="submit" value="submit">
 	</form>
+		
+		<br>
+		<h3>Delete this film</h3>
+		<form action="deleteMovie.do" method="POST">
+			<input type="hidden" name="id" value="${film.id}">
+			<input type="submit" value="Delete this film">
+		</form>
 </body>
 </html>

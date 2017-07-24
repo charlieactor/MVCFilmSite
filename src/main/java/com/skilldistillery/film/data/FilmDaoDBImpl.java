@@ -35,7 +35,7 @@ public class FilmDaoDBImpl implements FilmDao {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				title = new Film(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5),
+				title = new Film(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),
 						rs.getDouble(6), rs.getInt(7), rs.getDouble(8), rs.getString(9), createCast(rs.getInt(1)));
 			}
 			rs.close();
@@ -59,7 +59,7 @@ public class FilmDaoDBImpl implements FilmDao {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Film x = new Film(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getInt(5),
+				Film x = new Film(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5),
 						rs.getDouble(6), rs.getInt(7), rs.getDouble(8), rs.getString(9), createCast(rs.getInt(1)));
 				movieList.add(x);
 			}
@@ -132,6 +132,69 @@ public class FilmDaoDBImpl implements FilmDao {
 			throw new RuntimeException("Error inserting film " + film.getTitle());
 		}
 		return film;
+	}
+
+	@Override
+	public Film updateFilm(Film film) {
+
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false); // START TRANSACTION
+			String sql = "UPDATE film SET title=?, description=?, rental_duration=?, rental_rate=?, length=?, replacement_cost=?, rating=? WHERE id=?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, film.getTitle());
+			stmt.setString(2, film.getDescription());
+			stmt.setInt(3, film.getRentalDuration());
+			stmt.setDouble(4, film.getRentalRate());
+			stmt.setInt(5, film.getLength());
+			stmt.setDouble(6, film.getReplacementCost());
+			stmt.setString(7, film.getRating());
+			stmt.setInt(8, film.getId());
+			stmt.executeUpdate();
+			
+			conn.commit(); // COMMIT TRANSACTION
+		} catch (SQLException sqle) {
+			sqle.getMessage();
+			sqle.printStackTrace();
+			
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			throw new RuntimeException("Error inserting film " + film.getTitle());
+		}
+		return film;
+	}
+	
+	@Override
+	public boolean deleteFilm(int id) {
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(url, user, pass);
+			conn.setAutoCommit(false); // START TRANSACTION
+			String sql = "DELETE FROM film WHERE id=?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+			conn.commit(); // COMMIT TRANSACTION
+			return true;
+		} catch (SQLException sqle) {
+			sqle.getMessage();
+			sqle.printStackTrace();
+			
+			if (conn != null) {
+				try {
+					conn.rollback();
+				} catch (SQLException sqle2) {
+					System.err.println("Error trying to rollback");
+				}
+			}
+			throw new RuntimeException("Error deleting film id " + id);
+		}
 	}
 
 }

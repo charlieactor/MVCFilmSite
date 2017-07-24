@@ -1,7 +1,5 @@
 package com.skilldistillery.film.controllers;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,18 +49,18 @@ public class FilmController {
 	}
 	
 	@RequestMapping(path = "editMovie.do")
-	public ModelAndView editFilm(@RequestParam(name="id")int id, @RequestParam(name = "title") String title, @RequestParam(name="description")String description, @RequestParam(name="releaseYear")Date releaseYear, @RequestParam(name="rentalDuration")int rentalDuration, @RequestParam(name="rentalRate")double rentalRate, 
-								@RequestParam(name="length") int length, @RequestParam(name="replacementCost") double replacementCost, @RequestParam(name="rating") String rating, @RequestParam(name="cast") List<Actor> cast, @RequestParam(name="languageId") int languageId, @RequestParam(name="specialFeatures") String specialFeatures) {
+	public ModelAndView editFilm(@RequestParam(name="id")int id, @RequestParam(name = "title") String title, @RequestParam(name="description")String description, @RequestParam(name="releaseYear") int releaseYear, @RequestParam(name="rentalDuration")int rentalDuration, @RequestParam(name="rentalRate")double rentalRate, 
+								@RequestParam(name="length") int length, @RequestParam(name="replacementCost") double replacementCost, @RequestParam(name="rating") String rating, @RequestParam(name="specialFeatures") String specialFeatures) {
 		ModelAndView mv = new ModelAndView();
-		Film newFilm = new Film(id, title, description, releaseYear, rentalDuration, rentalRate, length, replacementCost, rating, cast);
+		Film newFilm = new Film(id, title, description, releaseYear, rentalDuration, rentalRate, length, replacementCost, rating, null);
 		mv.setViewName("WEB-INF/views/home.jsp");
-//		mv.addObject("filmTitle", dao.updateFilm(film1, film2));
+		mv.addObject("filmTitle", dao.updateFilm(newFilm));
 		return mv;
 		
 	}
 	
 	@RequestMapping(path = "addNewFilm.do")
-	public ModelAndView addFilm(@RequestParam(name = "title") String title, @RequestParam(name="description") String description, @RequestParam(name="releaseYear") Date releaseYear, @RequestParam(name = "rating") String rating, @RequestParam(name="length") int length) {
+	public ModelAndView addFilm(@RequestParam(name = "title") String title, @RequestParam(name="description") String description, @RequestParam(name="releaseYear") int releaseYear, @RequestParam(name = "rating") String rating, @RequestParam(name="length") int length) {
 		ModelAndView mv = new ModelAndView();
 		Film newbie = new Film();
 		newbie.setTitle(title);
@@ -77,6 +75,14 @@ public class FilmController {
 		newbie.setSpecialFeatures("none");
 		mv.setViewName("WEB-INF/views/home.jsp");
 		mv.addObject("filmTitle", dao.addFilm(newbie));
+		return mv;
+	}
+	
+	@RequestMapping(path="deleteMovie.do")
+	public ModelAndView deleteFilm(@RequestParam(name = "id") int id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("WEB-INF/views/home.jsp");
+		dao.deleteFilm(id);
 		return mv;
 	}
 	

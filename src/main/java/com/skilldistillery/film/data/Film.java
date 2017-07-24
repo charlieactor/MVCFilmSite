@@ -1,16 +1,13 @@
 package com.skilldistillery.film.data;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Film {
 	private int id;
 	private String title;
 	private String description;
-	private Date releaseYear;
+	private int releaseYear;
 	private int rentalDuration;
 	private double rentalRate;
 	private int length; //Duration in minutes
@@ -58,11 +55,11 @@ public class Film {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getReleaseYear() {
+	public int getReleaseYear() {
 		return releaseYear;
 	}
-	public void setReleaseYear(Date releaseYear) {
-		this.releaseYear = releaseYear;
+	public void setReleaseYear(int releaseYear2) {
+		this.releaseYear = releaseYear2;
 	}
 	public int getRentalDuration() {
 		return rentalDuration;
@@ -94,7 +91,7 @@ public class Film {
 	public void setRating(String rating) {
 		this.rating = rating;
 	}
-	public Film(int id, String title, String description, Date releaseYear2, int rentalDuration, double rentalRate,
+	public Film(int id, String title, String description, int releaseYear2, int rentalDuration, double rentalRate,
 			int length, double replacementCost, String rating, List<Actor> cast) {
 		super();
 		this.id = id;
